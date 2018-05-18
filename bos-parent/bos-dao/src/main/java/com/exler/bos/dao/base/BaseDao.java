@@ -1,4 +1,4 @@
-package com.exler.bos.dao;
+package com.exler.bos.dao.base;
 
 import java.io.Serializable;
 import java.util.List;

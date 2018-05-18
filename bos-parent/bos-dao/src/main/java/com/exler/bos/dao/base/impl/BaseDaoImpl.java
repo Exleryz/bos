@@ -1,6 +1,6 @@
-package com.exler.bos.dao.impl;
+package com.exler.bos.dao.base.impl;
 
-import com.exler.bos.dao.BaseDao;
+import com.exler.bos.dao.base.BaseDao;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
