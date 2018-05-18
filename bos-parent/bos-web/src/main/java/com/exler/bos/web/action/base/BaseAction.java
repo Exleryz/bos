@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
  */
 public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
     // 声明模型对象
-    private T model;
+    protected T model;
 
     // 在构造方法中动态获取实体类型 通过反射创建model对象
     public BaseAction() {

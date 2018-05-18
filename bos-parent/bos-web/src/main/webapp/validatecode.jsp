@@ -21,6 +21,7 @@
 	g.drawRect(0, 0, width - 1, height - 1);
 	// create a random instance to generate the codes
 	Random rdm = new Random();
+	// 16进制数
 	String hash1 = Integer.toHexString(rdm.nextInt());
 	// make some confusion
 	for (int i = 0; i < 50; i++) {
