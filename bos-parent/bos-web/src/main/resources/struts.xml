@@ -7,6 +7,26 @@
     <constant name="struts.devMode" value="false"/>
     <constant name="struts.objectFactory" value="spring"/>
     <package name="basicstruts2" extends="struts-default">
+
+        <interceptors>
+            <!--注册自定义拦截器-->
+            <interceptor name="bosLoginInterceptor" class="com.exler.bos.web.interceptor.BOSLoginInterceptor">
+                <!--指定哪些方法不需要拦截-->
+                <param name="excludeMethods">login</param>
+            </interceptor>
+            <!--定义拦截器栈-->
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="bosLoginInterceptor"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <!--设置自定义拦截器栈-->
+        <default-interceptor-ref name="myStack"/>
+        <!--全局结果集定义-->
+        <global-results>
+            <result name="login">/login.jsp</result>
+        </global-results>
+
         <!--需要进行权限控制的页面访问-->
         <action name="page_*_*">
             <result type="dispatcher">WEB-INF/pages/{1}/{2}.jsp</result>
@@ -17,6 +37,5 @@
             <result name="home">/WEB-INF/pages/common/index.jsp</result>
             <allowed-methods>login,logout</allowed-methods>
         </action>
-
     </package>
 </struts>

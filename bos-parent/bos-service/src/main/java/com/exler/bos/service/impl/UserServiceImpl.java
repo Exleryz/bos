@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(User user) {
         // 使用md5加密密码
-//        String password = MD5Utils.md5(user.getPassword());
-//        return userDao.findUserByUsernameAndPassword(user.getUsername(), password());
-        return userDao.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
+        String password = MD5Utils.md5(user.getPassword());
+        return userDao.findUserByUsernameAndPassword(user.getUsername(), password);
+//        return userDao.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
     }
 }
