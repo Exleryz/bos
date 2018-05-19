@@ -37,5 +37,10 @@
             <result name="home">/WEB-INF/pages/common/index.jsp</result>
             <allowed-methods>login,logout,editPassword</allowed-methods>
         </action>
+
+        <!--取派员管理-->
+        <action name="StaffAction" class="staffAction" method="{1}">
+            <result name="list">WEB-INF/pages/base/staff.jsp</result>
+        </action>
     </package>
 </struts>
