@@ -2,6 +2,7 @@ package com.exler.bos.web.action;
 
 import com.exler.bos.domain.User;
 import com.exler.bos.service.UserService;
+import com.exler.bos.utils.BOSUtils;
 import com.exler.bos.web.action.base.BaseAction;
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.commons.lang.StringUtils;
@@ -57,6 +58,27 @@ public class UserAction extends BaseAction<User> {
     public String logout() throws Exception {
         ServletActionContext.getRequest().getSession().invalidate();
         return "login";
+    }
+
+    /**
+     * 修改密码
+     *
+     * @return
+     * @throws Exception
+     */
+    public String editPassword() throws Exception {
+        String f = "1";
+        // 获取当前登录用户
+        User loginUser = BOSUtils.getLoginUser();
+        try {
+            userService.editPassword(loginUser.getId(), model.getPassword());
+        } catch (Exception e) {
+            f = "0";
+            e.printStackTrace();
+        }
+        ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
+        ServletActionContext.getResponse().getWriter().print(f);
+        return null;
     }
 
     public void setCheckcode(String checkcode) {

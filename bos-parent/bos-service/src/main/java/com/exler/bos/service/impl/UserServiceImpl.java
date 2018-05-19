@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+
     /**
      * 用户登录
+     *
      * @param user
      * @return
      */
@@ -24,5 +26,18 @@ public class UserServiceImpl implements UserService {
         String password = MD5Utils.md5(user.getPassword());
         return userDao.findUserByUsernameAndPassword(user.getUsername(), password);
 //        return userDao.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
+    }
+
+
+    /**
+     * 根据用户id修改密码
+     *
+     * @param id
+     * @param password
+     */
+    @Override
+    public void editPassword(String id, String password) {
+        password = MD5Utils.md5(password);
+        userDao.executeUpdate("user.editpassword", password, id);
     }
 }

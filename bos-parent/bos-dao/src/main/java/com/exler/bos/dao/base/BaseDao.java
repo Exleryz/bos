@@ -19,4 +19,6 @@ public interface BaseDao<T> {
     public T findById(Serializable id);
 
     public List<T> findAll();
+
+    public void executeUpdate(String queryName, Object...objects);
 }
