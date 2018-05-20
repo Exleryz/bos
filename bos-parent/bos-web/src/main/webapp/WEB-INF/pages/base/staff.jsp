@@ -56,7 +56,7 @@
 						array.push(id);
 					}
 					var ids = array.join(",");//1,2,3,4,5
-					location.href = "staffAction_deleteBatch.action?ids="+ids;
+					location.href = "StaffAction_deleteBatch.action?ids="+ids;
 					/**
 					$.post("staffAction_deleteBatch.action",{"ids":ids},function(data){
 						alert(data);
@@ -154,7 +154,7 @@
 			rownumbers : true,
 			striped : false,
 			// 选择pageSize大小
-			pageList: [1],
+			pageList: [10],
 			// pageList: [10],
 			pagination : true,
 			toolbar : toolbar,

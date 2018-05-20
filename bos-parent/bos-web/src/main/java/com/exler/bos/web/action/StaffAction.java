@@ -63,4 +63,40 @@ public class StaffAction extends BaseAction<Staff> {
         ServletActionContext.getResponse().getWriter().print(json);
         return null;
     }
+
+    // 属性驱动，接收页面提交的ids参数
+    private String ids;
+    /**
+     * 取派员批量删除
+     * @return
+     * @throws Exception
+     */
+    public String deleteBatch() throws Exception {
+        staffService.deleteBatch(ids);
+        return "list";
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
 }
