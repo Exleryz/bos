@@ -1,5 +1,7 @@
 package com.exler.bos.dao.base;
 
+import com.exler.bos.utils.PageBean;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,4 +23,6 @@ public interface BaseDao<T> {
     public List<T> findAll();
 
     public void executeUpdate(String queryName, Object...objects);
+
+    public void pageQuery(PageBean pageBean);
 }

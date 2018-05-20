@@ -39,8 +39,9 @@
         </action>
 
         <!--取派员管理-->
-        <action name="StaffAction" class="staffAction" method="{1}">
+        <action name="StaffAction_*" class="staffAction" method="{1}">
             <result name="list">WEB-INF/pages/base/staff.jsp</result>
+            <allowed-methods>add,pageQuery</allowed-methods>
         </action>
     </package>
 </struts>

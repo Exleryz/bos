@@ -1,9 +1,12 @@
 package com.exler.bos.dao.base.impl;
 
 import com.exler.bos.dao.base.BaseDao;
+import com.exler.bos.utils.PageBean;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import javax.annotation.Resource;
@@ -73,5 +76,28 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
         }
         // 执行更新
         query.executeUpdate();
+    }
+
+    /**
+     * 通用分页查询方法
+     *
+     * @param pageBean
+     */
+    @Override
+    public void pageQuery(PageBean pageBean) {
+        int currentPage = pageBean.getCurrentPage();
+        int pageSize = pageBean.getPageSize();
+        DetachedCriteria dc = pageBean.getDc();
+        // 查询total 总数据量
+        dc.setProjection(Projections.rowCount());   // 指定hibernate框架发出sql的形式    select count(*) from bc_staff;
+        List<Long> countList = (List<Long>) getHibernateTemplate().findByCriteria(dc);
+        Long count = countList.get(0);
+        pageBean.setTotal(count.intValue());
+        // 查询rows 当前页需要展示的数据集合
+        dc.setProjection(null);    // select * from bc_staff;
+        int firstResult = (currentPage - 1) * pageSize;
+        int maxResults = pageSize;
+        List rows = getHibernateTemplate().findByCriteria(dc, firstResult, maxResults);
+        pageBean.setRows(rows);
     }
 }

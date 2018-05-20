@@ -1,6 +1,7 @@
 package com.exler.bos.service;
 
 import com.exler.bos.domain.Staff;
+import com.exler.bos.utils.PageBean;
 
 /**
  * @Auther: Exler
@@ -9,4 +10,6 @@ import com.exler.bos.domain.Staff;
  */
 public interface StaffService {
     void save(Staff model);
+
+    void pageQuery(PageBean pageBean);
 }
