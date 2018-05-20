@@ -58,7 +58,6 @@ public class StaffAction extends BaseAction<Staff> {
         JsonConfig config = new JsonConfig();
         config.setExcludes(new String[]{"currentPage", "dc", "pageSize"});
         String json = JSONObject.fromObject(pageBean, config).toString();
-        System.out.println("-----------------" + json);
         ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
         ServletActionContext.getResponse().getWriter().print(json);
         return null;
@@ -66,13 +65,37 @@ public class StaffAction extends BaseAction<Staff> {
 
     // 属性驱动，接收页面提交的ids参数
     private String ids;
+
     /**
      * 取派员批量删除
+     *
      * @return
      * @throws Exception
      */
     public String deleteBatch() throws Exception {
         staffService.deleteBatch(ids);
+        return "list";
+    }
+
+    /**
+     * 修改取派员信息
+     * 直接用model只注入了  5个属性
+     * 先查询数据库，根据id查询原始数据
+     * 然后挨个覆盖
+     *
+     * @return
+     * @throws Exception
+     */
+    public String edit() throws Exception {
+        Staff staff = staffService.findById(model.getId());
+        // 覆盖
+        staff.setName(model.getName());
+        staff.setTelephone(model.getTelephone());
+        staff.setHaspda(model.getHaspda());
+        staff.setStandard(model.getStandard());
+        staff.setStation(model.getStation());
+
+        staffService.update(staff);
         return "list";
     }
 

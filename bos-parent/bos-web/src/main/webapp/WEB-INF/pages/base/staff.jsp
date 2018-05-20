@@ -193,6 +193,7 @@
 	function doDblClickRow(rowIndex, rowData){
 		//打开修改取派员窗口
 		$('#editStaffWindow').window("open");
+        alert(rowData);
 		//使用form表单对象的load方法回显数据
 		$("#editStaffForm").form("load",rowData);
 	}
