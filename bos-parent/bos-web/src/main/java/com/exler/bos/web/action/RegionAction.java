@@ -82,33 +82,13 @@ public class RegionAction extends BaseAction<Region> {
     /**
      * 分页查询
      */
-    private int page;
-    private int rows;
-
     public String pageQuery() throws Exception {
-        PageBean pb = new PageBean();
-        pb.setCurrentPage(page);
-        pb.setPageSize(rows);
-        DetachedCriteria dc = DetachedCriteria.forClass(Region.class);
-        pb.setDc(dc);
         regionService.pageQuery(pb);
-        JsonConfig config = new JsonConfig();
-        config.setExcludes(new String[]{"currentPage", "dc", "pageSize"});
-        String json = JSONObject.fromObject(pb, config).toString();
-        ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
-        ServletActionContext.getResponse().getWriter().print(json);
+        this.java2Json(pb, new String[]{"currentPage", "dc", "pageSize"});
         return null;
     }
 
     public void setRegionFile(File regionFile) {
         this.regionFile = regionFile;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public void setRows(int rows) {
-        this.rows = rows;
     }
 }
