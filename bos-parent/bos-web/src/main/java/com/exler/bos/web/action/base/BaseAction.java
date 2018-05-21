@@ -3,6 +3,7 @@ package com.exler.bos.web.action.base;
 import com.exler.bos.utils.PageBean;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import org.apache.struts2.ServletActionContext;
@@ -11,6 +12,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * 表现层通用实现
@@ -64,6 +66,23 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
         JsonConfig config = new JsonConfig();
         config.setExcludes(exclueds);
         String json = JSONObject.fromObject(o, config).toString();
+        ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
+        try {
+            ServletActionContext.getResponse().getWriter().print(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 将指定Java对象转为json
+     * @param list
+     * @param exclueds
+     */
+    public void java2Json(List list, String[] exclueds) {
+        JsonConfig config = new JsonConfig();
+        config.setExcludes(exclueds);
+        String json = JSONArray.fromObject(list, config).toString();
         ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
         try {
             ServletActionContext.getResponse().getWriter().print(json);

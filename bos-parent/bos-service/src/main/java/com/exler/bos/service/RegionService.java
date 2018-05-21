@@ -14,4 +14,8 @@ public interface RegionService {
     void saveBatch(List<Region> regionList);
 
     void pageQuery(PageBean pb);
+
+    List<Region> findAll();
+
+    List<Region> findListByQ(String q);
 }

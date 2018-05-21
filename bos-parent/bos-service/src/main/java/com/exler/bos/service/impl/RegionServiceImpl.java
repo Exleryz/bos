@@ -41,4 +41,24 @@ public class RegionServiceImpl implements RegionService {
     public void pageQuery(PageBean pb) {
         regionDao.pageQuery(pb);
     }
+
+    /**
+     * 查询所有区域
+     * @return
+     */
+    @Override
+    public List<Region> findAll() {
+        return regionDao.findAll();
+    }
+
+    /**
+     * 根据页面输入 进行模糊查询
+     * @param q
+     * @return
+     */
+    @Override
+    public List<Region> findListByQ(String q) {
+        return regionDao.findListByQ(q);
+
+    }
 }

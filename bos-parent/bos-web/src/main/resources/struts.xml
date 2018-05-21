@@ -46,7 +46,13 @@
 
         <!--区域管理-->
         <action name="RegionAction_*" class="regionAction" method="{1}">
-            <allowed-methods>importXls,pageQuery</allowed-methods>
+            <allowed-methods>importXls,pageQuery,listAjax</allowed-methods>
+        </action>
+
+        <!--分区管理-->
+        <action name="SubareaAction_*" class="subareaAction" method="{1}">
+            <result name="list">/WEB-INF/pages/base/subarea.jsp</result>
+            <allowed-methods>add</allowed-methods>
         </action>
     </package>
 </struts>

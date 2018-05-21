@@ -21,6 +21,11 @@ public class Region implements java.io.Serializable {
     private String citycode;
     private Set subareas = new HashSet(0);
 
+    // json中会有name字段
+    public String getName() {
+        return province + " " + city + " " + district;
+    }
+
     // Constructors
 
     /**

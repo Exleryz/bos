@@ -12,9 +12,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.struts2.ServletActionContext;
-import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -84,11 +83,31 @@ public class RegionAction extends BaseAction<Region> {
      */
     public String pageQuery() throws Exception {
         regionService.pageQuery(pb);
-        this.java2Json(pb, new String[]{"currentPage", "dc", "pageSize"});
+        this.java2Json(pb, new String[]{"currentPage", "dc", "pageSize","subareas"});
+        return null;
+    }
+
+    private String q;
+
+    /**
+     * 查询所有区域,写回json数据
+     */
+    public String listAjax() throws Exception {
+        List<Region> list = null;    //regionService.findAll();
+        if (StringUtils.isNotBlank(q)) {
+            list = regionService.findListByQ(q);
+        } else {
+            list = regionService.findAll();
+        }
+        java2Json(list, new String[]{"subareas"});
         return null;
     }
 
     public void setRegionFile(File regionFile) {
         this.regionFile = regionFile;
+    }
+
+    public void setQ(String q) {
+        this.q = q;
     }
 }
