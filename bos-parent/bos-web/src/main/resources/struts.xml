@@ -43,5 +43,10 @@
             <result name="list">WEB-INF/pages/base/staff.jsp</result>
             <allowed-methods>add,pageQuery,deleteBatch</allowed-methods>
         </action>
+
+        <!--区域管理-->
+        <action name="RegionAction_*" class="regionAction" method="{1}">
+            <allowed-methods>importXls,pageQuery</allowed-methods>
+        </action>
     </package>
 </struts>
