@@ -1,10 +1,19 @@
-package com.exler.bos.web.action.base;
+package com.exler.bos.web.action;
 
 import com.exler.bos.domain.Region;
 import com.exler.bos.service.RegionService;
+import com.exler.bos.utils.PageBean;
+import com.exler.bos.utils.PinYin4jUtils;
+import com.exler.bos.web.action.base.BaseAction;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import netscape.javascript.JSObject;
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.struts2.ServletActionContext;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -54,18 +63,52 @@ public class RegionAction extends BaseAction<Region> {
             String postcode = row.getCell(4).getStringCellValue();
             // 包装一个区域对象
             Region region = new Region(id, province, city, district, province, null, null, null);
+            province = province.substring(0, province.length() - 1);
+            city = city.substring(0, city.length() - 1);
+            district = district.substring(0, district.length() - 1);
+            String info = province + city + district;
+            String[] headByString = PinYin4jUtils.getHeadByString(info);
+            String shortCode = StringUtils.join(headByString);
+            // 城市编码
+            String cityCode = PinYin4jUtils.hanziToPinyin(city, "");
+            region.setShortcode(shortCode);
+            region.setCitycode(cityCode);
             regionList.add(region);
         }
         regionService.saveBatch(regionList);
-        System.out.println(regionFile);
         return null;
     }
 
+    /**
+     * 分页查询
+     */
+    private int page;
+    private int rows;
+
     public String pageQuery() throws Exception {
-        return "";
+        PageBean pb = new PageBean();
+        pb.setCurrentPage(page);
+        pb.setPageSize(rows);
+        DetachedCriteria dc = DetachedCriteria.forClass(Region.class);
+        pb.setDc(dc);
+        regionService.pageQuery(pb);
+        JsonConfig config = new JsonConfig();
+        config.setExcludes(new String[]{"currentPage", "dc", "pageSize"});
+        String json = JSONObject.fromObject(pb, config).toString();
+        ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
+        ServletActionContext.getResponse().getWriter().print(json);
+        return null;
     }
 
     public void setRegionFile(File regionFile) {
         this.regionFile = regionFile;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
     }
 }

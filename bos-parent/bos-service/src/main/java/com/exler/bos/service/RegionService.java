@@ -1,6 +1,7 @@
 package com.exler.bos.service;
 
 import com.exler.bos.domain.Region;
+import com.exler.bos.utils.PageBean;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ import java.util.List;
  */
 public interface RegionService {
     void saveBatch(List<Region> regionList);
+
+    void pageQuery(PageBean pb);
 }
