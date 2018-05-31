@@ -52,7 +52,7 @@
         <!--分区管理-->
         <action name="SubareaAction_*" class="subareaAction" method="{1}">
             <result name="list">/WEB-INF/pages/base/subarea.jsp</result>
-            <allowed-methods>add</allowed-methods>
+            <allowed-methods>add,pageQuery</allowed-methods>
         </action>
     </package>
 </struts>

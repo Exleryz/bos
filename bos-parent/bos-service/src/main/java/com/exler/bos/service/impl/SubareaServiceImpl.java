@@ -3,6 +3,7 @@ package com.exler.bos.service.impl;
 import com.exler.bos.dao.SubareaDao;
 import com.exler.bos.domain.Subarea;
 import com.exler.bos.service.SubareaService;
+import com.exler.bos.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,5 +27,10 @@ public class SubareaServiceImpl implements SubareaService {
     @Override
     public void save(Subarea model) {
         subareaDao.save(model);
+    }
+
+    @Override
+    public void pageQuery(PageBean pb) {
+        subareaDao.pageQuery(pb);
     }
 }

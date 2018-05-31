@@ -1,6 +1,7 @@
 package com.exler.bos.service;
 
 import com.exler.bos.domain.Subarea;
+import com.exler.bos.utils.PageBean;
 
 /**
  * @Auther: Exler
@@ -9,4 +10,6 @@ import com.exler.bos.domain.Subarea;
  */
 public interface SubareaService {
     void save(Subarea model);
+
+    void pageQuery(PageBean pb);
 }

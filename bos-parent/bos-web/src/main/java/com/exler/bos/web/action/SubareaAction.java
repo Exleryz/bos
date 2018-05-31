@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
-import javax.jws.WebParam;
 
 /**
  * @Auther: Exler
@@ -27,8 +26,18 @@ public class SubareaAction extends BaseAction<Subarea> {
      * @return
      * @throws Exception
      */
-    public String add() throws Exception{
+    public String add() throws Exception {
         subareaService.save(model);
         return "list";
+    }
+
+    /**
+     * @return
+     * @throws Exception
+     */
+    public String pageQuery() throws Exception {
+        subareaService.pageQuery(pb);
+        java2Json(pb, new String[]{"currentPage", "dc", "pageSize", "decidedzone", "subareas"});
+        return null;
     }
 }
